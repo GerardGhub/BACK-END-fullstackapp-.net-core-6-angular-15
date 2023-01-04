@@ -34,5 +34,14 @@ namespace WebAPI.Controllers
             return Ok(employee);
 
         }
+
+        [HttpGet]
+        [Route("{id:Guid}")]
+        public async Task<IActionResult> GetEmployee([FromRoute] Guid id)
+        {
+          var emp = await _appDbContext.Employees.FirstOrDefaultAsync(x => x.Id == id);
+            return Ok(emp);
+        }
+
     }
 }
