@@ -9,6 +9,9 @@ namespace WebAPI.Controllers
     [Route("api/[controller]")]
     public class EmployeesController : Controller
     {
+        /// <summary>
+        /// Declare the db context
+        /// </summary>
         private readonly AppDbContext _appDbContext;
 
         public EmployeesController(AppDbContext appDbContext)
@@ -28,10 +31,12 @@ namespace WebAPI.Controllers
         public async Task<IActionResult> AddlEmployees([FromBody] Employee employee)
         {
            employee.Id = Guid.NewGuid();
-           await _appDbContext.Employees.AddAsync(employee);
-            await _appDbContext.SaveChangesAsync();
 
-            return Ok(employee);
+           await _appDbContext.Employees.AddAsync(employee);
+
+           await _appDbContext.SaveChangesAsync();
+
+           return Ok(employee);
 
         }
 

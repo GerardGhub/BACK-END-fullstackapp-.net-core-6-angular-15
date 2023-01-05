@@ -8,5 +8,6 @@
         public long Phone { get; set; }
         public long Salary { get; set; } 
         public string Department { get; set; }
+        public string Position { get; set; }
     }
 }
