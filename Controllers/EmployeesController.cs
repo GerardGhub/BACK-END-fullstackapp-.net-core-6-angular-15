@@ -40,7 +40,35 @@ namespace WebAPI.Controllers
         public async Task<IActionResult> GetEmployee([FromRoute] Guid id)
         {
           var emp = await _appDbContext.Employees.FirstOrDefaultAsync(x => x.Id == id);
+      
+            if (emp == null)
+            {
+                return NotFound();
+            }
             return Ok(emp);
+        }
+
+        [HttpPut]
+        [Route("{id:Guid}")]
+        public async Task<IActionResult> UpdateEmployee([FromRoute] Guid id, Employee updateEmp)
+        {
+        var employee = await   _appDbContext.Employees.FindAsync(id);
+
+            if (employee == null)
+            {
+                return NotFound();
+            }
+
+            employee.Name = updateEmp.Name;
+            employee.Email = updateEmp.Email;
+            employee.Salary = updateEmp.Salary;
+            employee.Phone = updateEmp.Phone;
+            employee.Department = updateEmp.Department;
+
+            await  _appDbContext.SaveChangesAsync();
+
+            return Ok(employee);
+  
         }
 
     }
